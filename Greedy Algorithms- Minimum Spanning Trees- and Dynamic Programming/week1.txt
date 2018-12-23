@@ -1,0 +1,20 @@
+week1
+1.Consider a connected undirected graph GG with not necessarily distinct edge costs. Consider two different minimum-cost spanning trees of G, T and T'. Is there necessarily a sequence of minimum-cost spanning trees T = T0, T1, T2, ..., Tr = T' with the property that each consecutive pair Ti,T{i+1} of MSTs differ by only a single edge swap? Prove the statement or exhibit a counterexample.
+
+Proof:let E be the set of edges in T but not in T', randomly select an edge e from E, let cut(A,B) of G be a cut separated by e, by cut property we know that e is min-weight edge of that cut, and in T' there must be another equal-weight edge e' in T' that crosses that cut, find this edge by the method taught in the lecture, and then swap e with e', then we get T1, repeat the same operation on T1 and so forth, we will get T2,..., and finally Tr=T'
+
+2. Consider the following algorithm. The input is a connected undirected graph with edge costs (distinct, if you prefer). The algorithm proceeds in iterations. If the current graph is a spanning tree, then the algorithm halts. Otherwise, it picks an arbitrary cycle of the current graph and deletes the most expensive edge on the cycle. Is this algorithm guaranteed to compute a minimum-cost spanning tree? Prove it or exhibit a counterexample
+
+Proof:let g be a graph with cycles, it first picks an arbitrary cycle c, we need to prove that by deleting the max edge e in c, we will get a MST, we can prove by contradiction, assume we could get a MST T with e, then T must exclude some other edges in c, otherwise it will contain a cycle, find an edge e' in c but not in T such that by adding e' to T, we will get a cycle c'(can be same as c) which contains e,
+(an efficient way to search and also a way to prove that such edge exists is 
+1. randomly select an edge e1 in set of edges in c but not in T, 
+2. add it to T to form a cycle c1, if c1 does not contain e, then there must be other edge set E1 in T but not in c that comprises c1, else we've found it, search terminates.
+3. add E1 to c and delete some original edges in c to maintain it a new single cycle c', 
+4. replace c with c' and repeat,
+ultimately we will find the edge e', otherwise there would be a cycle in T, which is not possible.), 
+let A,B be end points of e, then they can be connected through e', therefore by exchanging e and e' in T, we get a smaller MST, which contradicts the assumption. 
+we can follow the same way to prove the subproblem. Q.E.D.
+
+3.Consider the following algorithm. The input is a connected undirected graph with edge costs (distinct, if you prefer). The algorithm proceeds in phases. Each phase adds some edges to a tree-so-far and reduces the number of vertices in the graph (when there is only 1 vertex left, the MST is just the empty set). In a phase, we identify the cheapest edge ev incident on each vertex v of the current graph. Let F={ev} be the collection of all such edges in the current phase. Obtain a new (smaller) graph by contracting all of the edges in F --- so that each connected component of F becomes a single vertex in the new graph --- discarding any self-loops that result. Let T denote the union of all edges that ever get contracted in a phase of this algorithm. Is T guaranteed to be a minimum-cost spanning tree? Prove it or exhibit a counterexample.
+
+Proof:for each vertex v in graph, there's a cut of which one side is just v,and the other side is all other vertices, from cut property,we know that the cheapest edge connected to v must be in MST, so all edges extracted by the first phase apparently belong to MST, for the succeeding phases, the idea is roughly the same, we contrive a cut as above for each vertex in the new graph, and split the single vertex on one side into original vertices, from cut property,we know this algorithm correctly extracts all the edges that belong to MST in this phase, and so forth. Next, we need to prove that this algorithm extracts no more edges, it's easy to prove because we see that this algorithm totally extracts |V|-1 edges.
