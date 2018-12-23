@@ -1,0 +1,12 @@
+1.In lecture we define the length of a path to be the sum of the lengths of its edges. Define the bottleneck of a path to be the maximum length of one of its edges. A mininum-bottleneck path between two vertices s and t is a path with bottleneck no larger than that of any other s-t path. Show how to modify Dijkstra's algorithm to compute a minimum-bottleneck path between two given vertices. The running time should be O(mlogn), as in lecture.
+
+like dijkstra's algorithm starting from one vertex, but greedily select edge of min weight, until two given vertices are connected
+
+2.We can do better. Suppose now that the graph is undirected. Give a linear-time O(m) algorithm to compute a minimum-bottleneck path between two given vertices.
+
+use Camerini's algorithm for undirected graphs, but change the termination condition "F is a spanning tree" into "if two given vertices are connected".
+
+3.What if the graph is directed? Can you compute a minimum-bottleneck path between two given vertices faster than O(mlogn)?
+
+refer to https://en.wikipedia.org/wiki/Widest_path_problem#Single_source_and_single_destination
+"It is possible to find maximum-capacity paths and minimax paths with a single source and single destination very efficiently even in models of computation that allow only comparisons of the input graph's edge weights and not arithmetic on them.[12][19] The algorithm maintains a set S of edges that are known to contain the bottleneck edge of the optimal path; initially, S is just the set of all m edges of the graph. At each iteration of the algorithm, it splits S into an ordered sequence of subsets S1, S2, ... of approximately equal size; the number of subsets in this partition is chosen in such a way that all of the split points between subsets can be found by repeated median-finding in time O(m). The algorithm then reweights each edge of the graph by the index of the subset containing the edge, and uses the modified Dijkstra algorithm on the reweighted graph; based on the results of this computation, it can determine in linear time which of the subsets contains the bottleneck edge weight. It then replaces S by the subset Si that it has determined to contain the bottleneck weight, and starts the next iteration with this new set S. The number of subsets into which S can be split increases exponentially with each step, so the number of iterations is proportional to the iterated logarithm function, O(log*n), and the total time is O(m log*n).[19] "
