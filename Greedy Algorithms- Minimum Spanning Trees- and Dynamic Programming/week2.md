@@ -16,9 +16,9 @@
    
 5. Prove that our analysis of union-find with lazy unions and union by rank (but without path compression) is asymptotically optimal (i.e., there are sequences of operations where you do Θ(logn) work on most of the operations).   
 
-   give up.
+   suppose we have 2n nodes 1,...,2n. Here is a sequence of operations. connect 1,2, connect 3,4, ...,connect 2n-1,2n, connect 1,3,connect 5,7,..., connect 1,5,connect 6,10,..., by this way we can build a tree with root of rank log(2n)(roughly a complete binary tree), connect, finally find all nodes successively that are leaf nodes. then these find operations require Θ(logn) time each, and the # of leaf nodes are at least n, yet the # of connect operations are no more than n, hereby we show that there are sequences of operations where you do Θ(logn) work on most of the operations
    
 6. Prove that in our union-find data structure with lazy unions, union by rank, and path compression, some operations might require Θ(logn) time.   
 
    lazy unions: find  
-   union by rank and path compression: suppose we have 2n nodes 1,...,n. Here is a sequence of operations. connect 1 and 2, connect 2 and 3, ...,connect n-1 and n, finally find n. then the last find operation require Θ(logn) time
+   union by rank and path compression: suppose we have 2n nodes 1,...,2n. Here is a sequence of operations. connect 1,2, connect 3,4, ...,connect 2n-1,2n, connect 1,3,connect 5,7,..., connect 1,5,connect 6,10,..., by this way we can build a tree with root of rank log(2n), finally find any node that is leaf node. then the last find operation require Θ(logn) time
